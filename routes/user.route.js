@@ -2,6 +2,8 @@ var express = require("express")
 var router =  express.Router()
 var passport = require("../config/passport")
 var xulydb = require("../CRUD/xulydb")
+var Sendmail = require("../send_mail/email")
+
 router.get("/", (req, res, next) => {
     res.render("index")
 })
@@ -48,6 +50,7 @@ router.get('/dashboard', async(req, res) => {
             activeuser: 'active',
             activetb: '',
             activeedittb: '',
+            activesendmail: '',
             })
         }else res.redirect("/thietbi")
         
@@ -65,6 +68,7 @@ router.get('/thietbi', async(req, res) => {
             activeuser: '',
             activetb: 'active',
             activeedittb: '',
+            activesendmail: '',
         })
     }else{
         res.redirect("/signin")
@@ -92,6 +96,7 @@ router.get('/editthietbi', async(req, res) => {
         activeuser: '',
         activetb: '',
         activeedittb: 'active',
+        activesendmail: '',
         data: dat,
     })
     // if(req.isAuthenticated()){
@@ -115,6 +120,7 @@ router.post('/suatb', async(req, res) => {
             activeuser: '',
             activetb: '',
             activeedittb: 'active',
+            activesendmail: '',
             Ma: req.body.code,
 })
 })
@@ -144,6 +150,7 @@ router.post('/searchedit', async(req, res) => {
             activeuser: '',
             activetb: '',
             activeedittb: 'active',
+            activesendmail: '',
             data: doc,
 })
     }else{
@@ -152,6 +159,7 @@ router.post('/searchedit', async(req, res) => {
             activeuser: '',
             activetb: '',
             activeedittb: 'active',
+            activesendmail: '',
             data: dat,
         })
     }
@@ -167,6 +175,7 @@ router.get("/themthietbi", (req, res) => {
             activetb: '',
             activeedittb: '',
             activethem: 'active',
+            activesendmail: '',
         })
     }else{
         res.redirect("/signin")
@@ -220,6 +229,20 @@ router.post('/logout',(req, res) => {
     res.redirect('/signin')
 })
 
+router.get('/sendmail', (req, res) => {
+    Sendmail.send_mail('nguyenduytan17@gmail.com')
+    res.send("da gui mail")
+})
 
+router.get('/sendmailhtml', (req, res) => {
+    res.render("mainSbAdmin/sendmail",{
+        _username: req.user.username,
+        activeuser: '',
+        activetb: '',
+        activeedittb: '',
+        activethem: '',
+        activesendmail: 'active',
+    })
+})
 
 module.exports = router
