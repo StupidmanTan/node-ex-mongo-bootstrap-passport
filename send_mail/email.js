@@ -56,7 +56,9 @@ const nodemailer =  require('nodemailer');
 //     }
 // });
 
-function send_mail(mail){
+
+function send_mail(mail,ccmail , subject){
+    
     var transporter = nodemailer.createTransport({ // config mail server
         host: process.env.hostmail,
         port: process.env.portmail,
@@ -86,8 +88,8 @@ function send_mail(mail){
     var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
         from: 'it@diamondplace.com.vn',
         to: mail,
-        cc: "it@diamondplace.com.vn",
-        subject: 'Test Nodemailer',
+        cc: ccmail,
+        subject: subject,
         text: 'Your text is here',//Thường thi mình không dùng cái này thay vào đó mình sử dụng html để dễ edit hơn
         html: content ,//Nội dung html mình đã tạo trên kia :)),
         // attachments: [{   // file on disk as an attachment
@@ -95,19 +97,29 @@ function send_mail(mail){
         //     path: 'D:/NguyenDuyTan/ChanMail.txt' // stream this file
         // },]
     }
+    
     transporter.sendMail(mainOptions, function(err, info){
+        
         if (err) {
             console.log(err);
             console.log('Khong gui duoc ' + mainOptions.to)
-            //req.flash('mess', 'Lỗi gửi mail: '+err); //Gửi thông báo đến người dùng
-            //res.redirect('/mail');
+            // req.flash('mess', 'Lỗi gửi mail: '+err); //Gửi thông báo đến người dùng
+            // req.flash('hasError', true)
+            // res.redirect('/sendmailhtml');
+           
         } else {
             console.log('Message sent: ' +  info.response);
             console.log('da gui thanh cong ' + mainOptions.to)
-            //req.flash('mess', 'Một email đã được gửi đến tài khoản của bạn'); //Gửi thông báo đến người dùng
-            //res.redirect('/mail');
+            //req.flash('mess', 'Email test đã được gửi đến tài khoản của bạn'); //Gửi thông báo đến người dùng
+            //res.redirect('/sendmailhtml');
+            
         }
-    });
+        
+    })
+
+    
+    
+
 }
 
 module.exports = {
