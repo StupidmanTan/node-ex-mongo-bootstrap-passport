@@ -237,8 +237,7 @@ router.post('/logout', (req, res) => {
 
 router.post('/sendmail', async (req, res) => {
     var mails = [
-        'it@diamondplace.com.vn',
-        'help-enom@gkcentralhotel.com'
+        'help-enom@gkcentralhotel.com',
     ];
     var textareacontent = req.body.textareacontent;
     console.log(textareacontent)
@@ -273,7 +272,7 @@ router.post('/sendmail', async (req, res) => {
             from: 'it@diamondplace.com.vn',
             to: mails[i],
             cc: req.body.txtemailcc,
-            subject: "TEST MAIL BY NODEJS and EXPRESS",
+            subject: req.body.txtsubject,
             text: 'Your text is here',//Thường thi mình không dùng cái này thay vào đó mình sử dụng html để dễ edit hơn
             html: content,//Nội dung html mình đã tạo trên kia :)),
             // attachments: [{   // file on disk as an attachment

@@ -162,6 +162,7 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
+        <div style="margin-left: 10px;">
         <% if(typeof(hasError) !='undefined' ) { %>
           <% if(hasError=='true' ) { %>
             <div style="padding: 10px; width: 100%; border-radius: 4px; background-color: #ee6f6ff1; color: #0966f3">
@@ -173,11 +174,16 @@
               </div>
               <% } %>
                 <% } %>
+                <form action="sendmail" method="post">
                   </br>
-                  </br>
-                  <form action="sendmail" method="post">
                   <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Example textarea</label>
+                    <label for="exampleFormControlInput2">Subject: </label>
+                    <input type="text" class="form-control" id="subject" name="txtsubject" placeholder="Subject">
+                  </div>
+                  </br>
+                  
+                  <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Content textarea: </label>
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="textareacontent"></textarea>
                   </div>
                   </br>
@@ -221,7 +227,7 @@
                     </div>
                   </div>
       </div>
-
+    </div>
       <!-- End of Main Content -->
       <!-- Footer -->
       <%- include('../layout/footer.ejs') %>
